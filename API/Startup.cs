@@ -52,7 +52,7 @@ namespace API
             app.UseAuthorization();
 
             app.UseSwagger();
-            app.UseSwaggerUI(a => { a.SwaggerEndpoint("/swagger/v1/swagger.json", "Farm API v1"); });
+            app.UseSwaggerUI(a => { a.SwaggerEndpoint("/swagger/v1/swagger.json", "TariffComparison API v1"); });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
