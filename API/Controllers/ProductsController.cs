@@ -30,7 +30,7 @@ namespace API.Controllers
         /// <returns><seealso cref="IReadOnlyList{ProductDto}"/></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
          public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetProducts(int consumption)
         {
             var productOutcome = await _productDataProvider.GetProductsAsync(consumption);
@@ -38,7 +38,7 @@ namespace API.Controllers
             if (productOutcome.Successful)
                 return Ok(_mapper.Map<IReadOnlyList<ProductDto>>(productOutcome.Result));
             else
-                return BadRequest(new ApiResponse((int)HttpStatusCode.NotFound, productOutcome.ErrorMessage));
+                return NotFound(new ApiResponse((int)HttpStatusCode.NotFound, productOutcome.ErrorMessage));
         }
     }
 }
