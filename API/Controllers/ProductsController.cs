@@ -23,7 +23,7 @@ namespace API.Controllers
         /// <summary>
         /// Get products based on consumption
         /// </summary>
-        /// <param name="consumption">consumption in kWh/year</param>
+        /// <param name="consumption">Consumption (kWh/year)</param>
         /// <returns><seealso cref="IReadOnlyList{ProductDto}"/></returns>
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetProducts(int consumption)
