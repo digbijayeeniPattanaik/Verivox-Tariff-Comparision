@@ -7,7 +7,7 @@ namespace API.Provider
 {
     public class ProductDataProvider : IProductDataProvider
     {
-        IList<Product> products = new List<Product>() {
+        private readonly IList<Product> products = new List<Product>() {
             new Product() {
                 TariffName = "basic electricity tariff",
                 AnnualCosts = 830M,
@@ -43,7 +43,7 @@ namespace API.Provider
         {
             var outcome = new Outcome<IEnumerable<Product>>();
             if (products.Any(a => a.Consumption == consumption))
-                outcome.Result = await Task.FromResult(products.Where(a => a.Consumption == consumption).ToList());
+                outcome.Result = await Task.FromResult(products.Where(a => a.Consumption == consumption).OrderBy(a => a.AnnualCosts).ToList());
             else outcome.ErrorMessage = "Consumption not available";
             return outcome;
         }
