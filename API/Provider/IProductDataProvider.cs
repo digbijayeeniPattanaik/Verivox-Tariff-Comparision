@@ -6,6 +6,6 @@ namespace API.Provider
 {
     public interface IProductDataProvider
     {
-        Task<IEnumerable<Product>> GetProductsAsync();
+        Task<Outcome<IEnumerable<Product>>> GetProductsAsync(int consumption);
     }
 }

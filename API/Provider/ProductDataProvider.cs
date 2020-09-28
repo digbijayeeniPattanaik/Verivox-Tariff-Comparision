@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using API.Model;
 
@@ -8,39 +9,43 @@ namespace API.Provider
     {
         IList<Product> products = new List<Product>() {
             new Product() {
-                Name = "basic electricity tariff",
+                TariffName = "basic electricity tariff",
                 AnnualCosts = 830M,
                 Consumption =3500 },
 
             new Product() {
-                Name = "basic electricity tariff",
+                TariffName = "basic electricity tariff",
                 AnnualCosts = 1050M,
                 Consumption =4500 },
 
             new Product() {
-                Name = "basic electricity tariff",
+                TariffName = "basic electricity tariff",
                 AnnualCosts = 1380M,
                 Consumption =6000 },
 
             new Product() {
-                Name = "Packaged tariff",
+                TariffName = "Packaged tariff",
                 AnnualCosts = 800M,
                 Consumption =3500   },
 
             new Product() {
-                Name = "Packaged tariff",
+                TariffName = "Packaged tariff",
                 AnnualCosts = 950M,
                 Consumption =4500  },
 
             new Product() {
-                Name = "Packaged tariff",
+                TariffName = "Packaged tariff",
                 AnnualCosts = 1400M,
                 Consumption =6000 }
 
         };
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<Outcome<IEnumerable<Product>>> GetProductsAsync(int consumption)
         {
-            return await Task.FromResult(products);
+            var outcome = new Outcome<IEnumerable<Product>>();
+            if (products.Any(a => a.Consumption == consumption))
+                outcome.Result = await Task.FromResult(products.Where(a => a.Consumption == consumption).ToList());
+            else outcome.ErrorMessage = "Consumption not available";
+            return outcome;
         }
     }
 }
