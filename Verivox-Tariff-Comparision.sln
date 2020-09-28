@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{25C8C79B-09E0-42EA-8367-477011710CB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{25C8C79B-09E0-42EA-8367-477011710CB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Tests", "API.Tests\API.Tests.csproj", "{D51E9753-A94E-49E1-A7AC-87EB33B2A304}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,9 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{25C8C79B-09E0-42EA-8367-477011710CB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +29,23 @@ Global
 		{25C8C79B-09E0-42EA-8367-477011710CB5}.Release|x64.Build.0 = Release|Any CPU
 		{25C8C79B-09E0-42EA-8367-477011710CB5}.Release|x86.ActiveCfg = Release|Any CPU
 		{25C8C79B-09E0-42EA-8367-477011710CB5}.Release|x86.Build.0 = Release|Any CPU
+		{D51E9753-A94E-49E1-A7AC-87EB33B2A304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D51E9753-A94E-49E1-A7AC-87EB33B2A304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D51E9753-A94E-49E1-A7AC-87EB33B2A304}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D51E9753-A94E-49E1-A7AC-87EB33B2A304}.Debug|x64.Build.0 = Debug|Any CPU
+		{D51E9753-A94E-49E1-A7AC-87EB33B2A304}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D51E9753-A94E-49E1-A7AC-87EB33B2A304}.Debug|x86.Build.0 = Debug|Any CPU
+		{D51E9753-A94E-49E1-A7AC-87EB33B2A304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D51E9753-A94E-49E1-A7AC-87EB33B2A304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D51E9753-A94E-49E1-A7AC-87EB33B2A304}.Release|x64.ActiveCfg = Release|Any CPU
+		{D51E9753-A94E-49E1-A7AC-87EB33B2A304}.Release|x64.Build.0 = Release|Any CPU
+		{D51E9753-A94E-49E1-A7AC-87EB33B2A304}.Release|x86.ActiveCfg = Release|Any CPU
+		{D51E9753-A94E-49E1-A7AC-87EB33B2A304}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33834694-6414-49A3-8499-2A5F4EAEC294}
 	EndGlobalSection
 EndGlobal

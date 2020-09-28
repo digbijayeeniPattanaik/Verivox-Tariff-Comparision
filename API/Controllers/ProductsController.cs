@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Dto;
-using API.Model;
 using API.Provider;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -25,9 +24,9 @@ namespace API.Controllers
         /// Get products based on consumption
         /// </summary>
         /// <param name="consumption">consumption in kWh/year</param>
-        /// <returns><seealso cref="IReadOnlyList{Product}"/></returns>
+        /// <returns><seealso cref="IReadOnlyList{ProductDto}"/></returns>
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts(int consumption)
+        public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetProducts(int consumption)
         {
             var productOutcome = await _productDataProvider.GetProductsAsync(consumption);
 
