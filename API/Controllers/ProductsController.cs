@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using API.Dto;
 using API.ExceptionHandler;
@@ -30,14 +31,14 @@ namespace API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetProducts(int consumption)
+         public async Task<ActionResult<IReadOnlyList<ProductDto>>> GetProducts(int consumption)
         {
             var productOutcome = await _productDataProvider.GetProductsAsync(consumption);
 
             if (productOutcome.Successful)
                 return Ok(_mapper.Map<IReadOnlyList<ProductDto>>(productOutcome.Result));
             else
-                return BadRequest(productOutcome.ErrorMessage);
+                return BadRequest(new ApiResponse((int)HttpStatusCode.NotFound, productOutcome.ErrorMessage));
         }
     }
 }
