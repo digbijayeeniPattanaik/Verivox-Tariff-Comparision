@@ -1,5 +1,5 @@
-﻿using API.Dto;
-using API.Model;
+﻿using API.Model;
+using API.Products;
 using AutoMapper;
 
 namespace API
@@ -8,7 +8,8 @@ namespace API
     {
         public MappingProfiles()
         {
-            CreateMap<Product, ProductDto>();
+            CreateMap<ProductA, Product>();
+            CreateMap<ProductB, Product>();
         }
     }
 }

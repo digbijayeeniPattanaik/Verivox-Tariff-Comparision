@@ -1,8 +1,6 @@
 using API.Controllers;
-using API.Dto;
 using API.Model;
 using API.Provider;
-using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
@@ -15,14 +13,12 @@ namespace API.Tests.Controller
     {
         private ProductsController productController;
         private Mock<IProductDataProvider> _mockProductDataProvider;
-        private Mock<IMapper> _mockMapper;
 
         [TestInitialize]
         public void Init()
         {
             _mockProductDataProvider = new Mock<IProductDataProvider>();
-            _mockMapper = new Mock<IMapper>();
-            productController = new ProductsController(_mockProductDataProvider.Object, _mockMapper.Object);
+            productController = new ProductsController(_mockProductDataProvider.Object);
         }
 
         [TestMethod]
@@ -33,35 +29,31 @@ namespace API.Tests.Controller
                 new Product()
                 {
                     TariffName = "Packaged tariff",
-                    AnnualCosts = 800M,
-                    Consumption = 3500
+                    AnnualCosts = 800M
                 },
                 new Product() {
                 TariffName = "basic electricity tariff",
-                AnnualCosts = 830M,
-                Consumption =3500 }
+                AnnualCosts = 830M }
             };
 
             var outcome = new Outcome<IEnumerable<Product>>() { Result = products };
             _mockProductDataProvider.Setup(a => a.GetProductsAsync(It.IsAny<int>())).ReturnsAsync(outcome);
 
-            var productDtos = new List<ProductDto>()
+            var productDtos = new List<Product>()
             {
-                new ProductDto() {
+                new Product() {
                 TariffName = "Packaged tariff",
                 AnnualCosts = 800M   },
 
-                new ProductDto() {
+                new Product() {
                 TariffName = "basic electricity tariff",
                 AnnualCosts = 830M}
             };
 
-            _mockMapper.Setup(a => a.Map<IReadOnlyList<ProductDto>>(It.IsAny<IEnumerable<Product>>())).Returns(productDtos);
             var result = await productController.GetProducts(It.IsAny<int>());
             _mockProductDataProvider.Verify(a => a.GetProductsAsync(It.IsAny<int>()), Times.Once);
-            _mockMapper.Verify(a => a.Map<IReadOnlyList<ProductDto>>(It.IsAny<IEnumerable<Product>>()), Times.Once);
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(Microsoft.AspNetCore.Mvc.ActionResult<IReadOnlyList<ProductDto>>));
+            Assert.IsInstanceOfType(result, typeof(Microsoft.AspNetCore.Mvc.ActionResult<IReadOnlyList<Product>>));
         }
 
         [TestMethod]
@@ -72,9 +64,8 @@ namespace API.Tests.Controller
             var result = await productController.GetProducts(It.IsAny<int>());
 
             _mockProductDataProvider.Verify(a => a.GetProductsAsync(It.IsAny<int>()), Times.Once);
-            _mockMapper.Verify(a => a.Map<IReadOnlyList<ProductDto>>(It.IsAny<IEnumerable<Product>>()), Times.Never);
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(Microsoft.AspNetCore.Mvc.ActionResult<IReadOnlyList<ProductDto>>));
+            Assert.IsInstanceOfType(result, typeof(Microsoft.AspNetCore.Mvc.ActionResult<IReadOnlyList<Product>>));
         }
     }
 }

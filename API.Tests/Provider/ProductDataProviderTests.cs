@@ -1,5 +1,6 @@
 ﻿using API.Model;
 using API.Provider;
+using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
@@ -11,11 +12,12 @@ namespace API.Tests.Provider
     public class ProductDataProviderTests
     {
         private ProductDataProvider productDataProvider;
-
+        private Mock<IMapper> _mockMapper;
         [TestInitialize]
         public void Init()
         {
-            productDataProvider = new ProductDataProvider();
+            _mockMapper = new Mock<IMapper>();
+            productDataProvider = new ProductDataProvider(_mockMapper.Object);
         }
 
         [TestMethod]
@@ -31,11 +33,14 @@ namespace API.Tests.Provider
         [TestMethod]
         public async Task Test_GetAudit_WhenNoResults_Failure()
         {
+            var expectedList = new List<Product>() {
+                new Product() { AnnualCosts = 60, TariffName = "basic electricity tariff" },
+                new Product() { AnnualCosts = 800, TariffName = "Packaged tariff" } };
+            _mockMapper.Setup(a => a.Map<IEnumerable<Product>>(It.IsAny<IEnumerable<ICalculationUnit>>())).Returns(expectedList);
+
             var result = await productDataProvider.GetProductsAsync(It.IsAny<int>());
 
-            Assert.IsFalse(result.Successful);
-            Assert.AreEqual(result.ErrorMessage, "Consumption not available");
-            Assert.IsNull(result.Result);
+            Assert.IsTrue(result.Successful);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(Outcome<IEnumerable<Product>>));
         }

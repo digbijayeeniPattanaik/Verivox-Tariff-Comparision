@@ -1,74 +1,75 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "title": "TariffComparison API",
-    "version": "v1"
-  },
-  "paths": {
-    "/api/Products": {
-      "get": {
-        "tags": [
-          "Products"
-        ],
-        "summary": "Get products based on consumption",
-        "parameters": [
-          {
-            "name": "consumption",
-            "in": "query",
-            "description": "Consumption (kWh/year)",
-            "schema": {
-              "type": "integer",
+    "openapi": "3.0.1",
+    "info": {
+      "title": "TariffComparison API",
+      "version": "v1"
+    },
+    "paths": {
+      "/api/Products": {
+        "get": {
+          "tags": [
+            "Products"
+          ],
+          "summary": "Get products based on consumption",
+          "parameters": [
+            {
+              "name": "consumption",
+              "in": "query",
               "description": "Consumption (kWh/year)",
-              "format": "int32"
+              "schema": {
+                "type": "integer",
+                "description": "Consumption (kWh/year)",
+                "format": "int32"
+              }
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProductDto"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Product"
+                    }
                   }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProductDto"
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Product"
+                    }
                   }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProductDto"
+                },
+                "text/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Product"
+                    }
                   }
                 }
               }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiResponse"
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiResponse"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiResponse"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiResponse"
+                  }
                 }
               }
             }
@@ -76,100 +77,36 @@
         }
       }
     },
-    "/WeatherForecast": {
-      "get": {
-        "tags": [
-          "WeatherForecast"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              }
+    "components": {
+      "schemas": {
+        "Product": {
+          "type": "object",
+          "properties": {
+            "tariffName": {
+              "type": "string",
+              "nullable": true
+            },
+            "annualCosts": {
+              "type": "number",
+              "format": "double"
             }
-          }
+          },
+          "additionalProperties": false
+        },
+        "ApiResponse": {
+          "type": "object",
+          "properties": {
+            "statusCode": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "message": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
         }
       }
     }
-  },
-  "components": {
-    "schemas": {
-      "ProductDto": {
-        "type": "object",
-        "properties": {
-          "tariffName": {
-            "type": "string",
-            "description": "Tariff Name",
-            "nullable": true
-          },
-          "annualCosts": {
-            "type": "number",
-            "description": "Annual costs (€/year)",
-            "format": "double"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ApiResponse": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "WeatherForecast": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "temperatureC": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "temperatureF": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "summary": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      }
-    }
   }
-}
